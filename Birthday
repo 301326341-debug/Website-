@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For My Wife Masha ❤️ | Cocomallow Birthday Surprise</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      width: 100%;
+      min-height: 100vh;
+      background-color: #030206;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Background Matrix Canvas */
+    canvas {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    /* Floating Items in Background */
+    .bg-item {
+      position: fixed;
+      top: -10vh;
+      font-size: 1.5rem;
+      user-select: none;
+      pointer-events: none;
+      animation: floatDown linear infinite;
+      z-index: 2;
+    }
+
+    @keyframes floatDown {
+      0% { transform: translateY(0) rotate(0deg) scale(0.8); opacity: 0.9; }
+      100% { transform: translateY(110vh) rotate(360deg) scale(1.2); opacity: 0.1; }
+    }
+
+    /* Main Glassmorphic Card Container */
+    .card-container {
+      position: relative;
+      z-index: 10;
+      max-width: 650px;
+      width: 100%;
+      background: rgba(12, 6, 18, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      border: 1px solid rgba(255, 105, 180, 0.35);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.9), 0 0 35px rgba(255, 20, 147, 0.25);
+      padding: 35px 25px;
+      text-align: center;
+      color: #f0e6ed;
+      margin: 20px auto;
+    }
+
+    .main-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: 2.3rem;
+      color: #ff4d7d;
+      text-shadow: 0 0 15px rgba(255, 77, 125, 0.6), 2px 3px 0px #000;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #ffa6c1;
+      margin-bottom: 20px;
+      font-weight: 600;
+    }
+
+    /* Music Player */
+    .music-player {
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 50px;
+      padding: 8px 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 25px;
+      border: 1px solid rgba(255, 105, 180, 0.25);
+    }
+
+    .play-btn {
+      background: #ff4b6e;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 38px;
+      height: 38px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .play-btn:hover { transform: scale(1.1); }
+
+    .song-title {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #f3d0db;
+    }
+
+    /* Status Indicator for Matrix Particle Animation */
+    .matrix-status {
+      font-size: 0.85rem;
+      color: #ff8da1;
+      margin-bottom: 15px;
+      font-style: italic;
+    }
+
+    /* STEP 1: ENVELOPE BOX */
+    .envelope-box {
+      background: linear-gradient(135deg, #7a1b3c, #ff4b6e);
+      border-radius: 20px;
+      padding: 40px 20px;
+      cursor: pointer;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 75, 110, 0.4);
+      transition: all 0.4s ease;
+    }
+
+    .envelope-box:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(255, 20, 147, 0.6);
+    }
+
+    .envelope-icon {
+      font-size: 4rem;
+      animation: pulse 1.5s infinite;
+    }
+
+    .click-hint {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      color: white;
+      margin-top: 10px;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.15); }
+    }
+
+    /* STEP 2: LETTER CONTAINER */
+    .letter-container {
+      display: none;
+      text-align: left;
+      background: rgba(18, 10, 24, 0.9);
+      padding: 28px;
+      border-radius: 20px;
+      line-height: 1.8;
+      font-size: 0.95rem;
+      color: #ffe6f2;
+      border-left: 5px solid #ff4b6e;
+      border-right: 1px solid rgba(255, 105, 180, 0.3);
+      max-height: 350px;
+      overflow-y: auto;
+      margin-bottom: 25px;
+      animation: slideUp 0.6s ease forwards;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .highlight {
+      color: #ff8da1;
+      font-weight: 600;
+    }
+
+    .signature {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.9rem;
+      color: #ff7597;
+      text-align: right;
+      margin-top: 20px;
+      display: block;
+    }
+
+    /* STEP 3: LOVE QUIZ SECTION */
+    .quiz-section {
+      display: none;
+      background: rgba(255, 75, 110, 0.1);
+      border: 1px dashed #ff4d7d;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 25px;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .quiz-title {
+      font-family: 'Fredoka One', cursive;
+      color: #ffa6c1;
+      font-size: 1.2rem;
+      margin-bottom: 12px;
+    }
+
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .quiz-btn {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #ff4d7d;
+      color: #fff;
+      padding: 11px 15px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .quiz-btn:hover {
+      background: #ff4b6e;
+      transform: scale(1.02);
+    }
+
+    .quiz-result {
+      display: none;
+      margin-top: 15px;
+      font-family: 'Fredoka One', cursive;
+      color: #ff758c;
+      font-size: 1.1rem;
+      animation: pulse 1s infinite;
+    }
+
+    /* STEP 4: KISS ANIMATION SECTION */
+    .kiss-section {
+      display: none;
+      margin-bottom: 25px;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    .kiss-btn {
+      background: linear-gradient(45deg, #ff1493, #ff69b4);
+      color: white;
+      border: none;
+      padding: 14px 28px;
+      font-size: 1.1rem;
+      font-family: 'Fredoka One', cursive;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 8px 25px rgba(255, 20, 147, 0.5);
+      transition: all 0.2s ease;
+    }
+
+    .kiss-btn:active { transform: scale(0.95); }
+
+    .kiss-counter {
+      margin-top: 10px;
+      font-size: 0.9rem;
+      color: #ffa6c1;
+      font-weight: 600;
+    }
+
+    .flying-kiss {
+      position: fixed;
+      font-size: 2.5rem;
+      pointer-events: none;
+      z-index: 100;
+      animation: flyUp 1.5s ease-out forwards;
+    }
+
+    @keyframes flyUp {
+      0% { transform: translateY(0) scale(0.5) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(-200px) scale(1.8) rotate(20deg); opacity: 0; }
+    }
+
+    /* STEP 5: QUESTION & REPLY ANIMATION SECTION */
+    .love-declaration {
+      display: none;
+      margin-bottom: 25px;
+      padding: 30px 20px;
+      background: rgba(255, 20, 147, 0.12);
+      border: 2px solid #ff1493;
+      border-radius: 24px;
+      box-shadow: 0 0 30px rgba(255, 20, 147, 0.4);
+      animation: pulseGlow 2s infinite alternate, fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 15px rgba(255, 20, 147, 0.3); border-color: #ff4b6e; }
+      100% { box-shadow: 0 0 35px rgba(255, 105, 180, 0.8); border-color: #ff1493; }
+    }
+
+    .big-beating-heart {
+      font-size: 4.5rem;
+      display: inline-block;
+      animation: heartBeat 1.2s infinite;
+    }
+
+    @keyframes heartBeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.25); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.15); }
+    }
+
+    .ily-title {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(1.3rem, 4.5vw, 1.7rem);
+      color: #ff69b4;
+      text-shadow: 0 0 12px rgba(255, 105, 180, 0.8), 2px 2px 4px #000;
+      margin: 12px 0 5px 0;
+      line-height: 1.3;
+    }
+
+    .ily-question {
+      font-size: 1rem;
+      color: #ffd1dc;
+      font-weight: 600;
+      margin: 10px 0 18px 0;
+    }
+
+    .reply-action-btn {
+      background: linear-gradient(45deg, #ff1493, #ff758c);
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      font-size: 1.05rem;
+      font-family: 'Fredoka One', cursive;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 20, 147, 0.5);
+      transition: all 0.3s;
+      animation: bounce 2s infinite;
+    }
+
+    .reply-action-btn:hover {
+      transform: scale(1.06);
+      box-shadow: 0 10px 25px rgba(255, 20, 147, 0.7);
+    }
+
+    .reply-confirmed-msg {
+      display: none;
+      margin-top: 15px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      color: #ff85a2;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(-8px); }
+      60% { transform: translateY(-4px); }
+    }
+
+    /* STEP 6: HUG SECTION */
+    .hug-section {
+      display: none;
+      margin-top: 25px;
+      padding: 20px;
+      background: rgba(25, 15, 24, 0.85);
+      border-radius: 20px;
+      border: 2px dashed #ff4d7d;
+      animation: fadeIn 0.8s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .hug-title {
+      font-family: 'Fredoka One', cursive;
+      color: #ff4d7d;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .marshmallow-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 140px;
+      position: relative;
+    }
+
+    .mallow {
+      width: 70px;
+      height: 85px;
+      background: #ffffff;
+      border-radius: 25px 25px 20px 20px;
+      box-shadow: inset -4px -4px 10px rgba(0,0,0,0.15), 0 8px 20px rgba(0, 0, 0, 0.4);
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      border: 3px solid #ffd1dc;
+    }
+
+    .mallow.left {
+      background: #fff0f5;
+      left: 32%;
+      animation: hugLeft 2s ease-in-out infinite alternate;
+    }
+
+    .mallow.right {
+      background: #ffffff;
+      right: 32%;
+      animation: hugRight 2s ease-in-out infinite alternate;
+    }
+
+    .eyes { display: flex; gap: 12px; margin-top: -10px; }
+    .eye { width: 7px; height: 9px; background: #331520; border-radius: 50%; }
+    .blush { width: 10px; height: 5px; background: #ff85a2; border-radius: 50%; margin-top: 3px; }
+    .blushes { display: flex; gap: 18px; }
+
+    .arm {
+      width: 25px;
+      height: 8px;
+      background: #ffd1dc;
+      border-radius: 10px;
+      position: absolute;
+      top: 45px;
+    }
+    .left .arm { right: -12px; transform: rotate(-20deg); }
+    .right .arm { left: -12px; transform: rotate(20deg); }
+
+    @keyframes hugLeft {
+      0% { transform: translateX(0) rotate(0deg); }
+      100% { transform: translateX(25px) rotate(12deg); }
+    }
+
+    @keyframes hugRight {
+      0% { transform: translateX(0) rotate(0deg); }
+      100% { transform: translateX(-25px) rotate(-12deg); }
+    }
+
+    .sweet-msg {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #ff9ebb;
+    }
+
+    .letter-container::-webkit-scrollbar { width: 6px; }
+    .letter-container::-webkit-scrollbar-thumb { background: #ff4b6e; border-radius: 10px; }
+  </style>
+</head>
+<body>
+
+  <!-- Matrix Background Canvas -->
+  <canvas id="canvas"></canvas>
+
+  <!-- Floating Elements -->
+  <div id="bgContainer"></div>
+
+  <!-- Interactive Card Container -->
+  <div class="card-container">
+    <h1 class="main-title">💕 Cocomallow Marshmallow</h1>
+    <p class="subtitle">Happy Birthday to My Cutie Wife Masha!</p>
+
+    <!-- Music Player -->
+    <div class="music-player">
+      <button class="play-btn" id="playBtn" onclick="toggleMusic()">▶</button>
+      <span class="song-title" id="songStatus">Click for sweet background music 🎵</span>
+    </div>
+    <audio id="bgMusic" loop src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=romantic-love-112261.mp3"></audio>
+
+    <!-- Canvas Animation Sequence Status -->
+    <div class="matrix-status" id="matrixStatus">✨ Matrix particles animating in background... ✨</div>
+
+    <!-- STEP 1: ENVELOPE -->
+    <div class="envelope-box" id="envelopeBox" onclick="openLetter()">
+      <div class="envelope-icon">💌</div>
+      <div class="click-hint">Click to Read Message, My Love! ✨</div>
+    </div>
+
+    <!-- STEP 2: ROMANTIC LETTER -->
+    <div class="letter-container" id="letterBox">
+      <p>Dearest <span class="highlight">Masha</span> (Meri Janu, Mera Chota Sa Baby, Meri Wife),</p>
+      <br>
+      <p>Happy Birthday to the sweetest, most beautiful, caring, and loving wife in the entire universe! Today is all about celebrating <strong>YOU</strong>—the amazing woman who fills my heart with joy and my life with light every single day.</p>
+      <p>From the moment you entered my life, everything became so much softer, brighter, and filled with warmth—just like a sweet marshmallow.</p>
+      <p>On your special day, I want to thank you from the bottom of my heart:</p>
+      <ul>
+        <li>✨ <strong>Thank you</strong> for being my greatest support, my safe space, and my best friend.</li>
+        <li>✨ <strong>Thank you</strong> for every smile you bring to my face and all the warmth you pour into our life.</li>
+        <li>✨ <strong>Thank you</strong> for all the precious moments, tight hugs, quiet cuddle talks, and for loving me so unconditionally.</li>
+      </ul>
+      <br>
+      <p>Meri janu, you aren't just my wife; you are my home, my peace, and my greatest blessing. Seeing you happy is my biggest mission in life. I fall in love with you more and more with each passing second.</p>
+      <p>I pray to <strong>God</strong> to bless you with endless health, immense happiness, true peace, giant giggles, and all the success in the world. May we celebrate every single birthday together, holding hands just like this forever.</p>
+
+      <span class="signature">I love u Meri choti si janu ji mera chota sy baby meri masha 🤭💋🙈🫂</span>
+    </div>
+
+    <!-- STEP 3: INTERACTIVE LOVE QUIZ -->
+    <div class="quiz-section" id="quizSection">
+      <div class="quiz-title">❓ Quick Love Question for You! 💖</div>
+      <p style="margin-bottom: 15px; font-size: 0.95rem;">Sachi batao, aap mujhse kitna pyar karti ho?</p>
+      <div class="quiz-options">
+        <button class="quiz-btn" onclick="selectQuizAnswer('1000% Pyar!')">1️⃣ 1000% Pyar karti hu! 💖</button>
+        <button class="quiz-btn" onclick="selectQuizAnswer('Infinite & Beyond!')">2️⃣ Infinite & Beyond! ♾️✨</button>
+        <button class="quiz-btn" onclick="selectQuizAnswer('Poora Aasman Bhar Ke!')">3️⃣ Poora Aasman Bhar Ke! 🌌💕</button>
+      </div>
+      <div class="quiz-result" id="quizResult"></div>
+    </div>
+
+    <!-- STEP 4: INTERACTIVE KISS BUTTON -->
+    <div class="kiss-section" id="kissSection">
+      <button class="kiss-btn" onclick="triggerKissAnimation(event)">💋 Click Here For A Big Sweet Kiss! 💋</button>
+      <div class="kiss-counter" id="kissCounter">Kisses Sent: 0 😘</div>
+    </div>
+
+    <!-- STEP 5: QUESTION FOR HER TO ANSWER "I LOVE YOU TOO" -->
+    <div class="love-declaration" id="loveDeclaration">
+      <div class="big-beating-heart">💖</div>
+      <div class="ily-title">I LOVE YOU SO MUCH MERI CHOTI SI JANU JI! MERI MASHA ❤️</div>
+      <p class="ily-question">Ab aapki bari! Aap kya kehna chahti ho? 🙈👇</p>
+      
+      <button class="reply-action-btn" id="replyBtn" onclick="submitILoveYouToo()">
+        Click to say: "I love u too so much janu! 🥰✨"
+      </button>
+
+      <div class="reply-confirmed-msg" id="replyConfirmedMsg">
+        YAY! 💖 You Said: "I love u so much too janu!" <br> Big Hug Unlocked! 🤗
+      </div>
+    </div>
+
+    <!-- STEP 6: COCOMALLOW HUG ANIMATION -->
+    <div class="hug-section" id="hugSection">
+      <div class="hug-title">Cocomallow Big Hug Attack! 🤗💖</div>
+      
+      <div class="marshmallow-stage">
+        <div class="mallow left">
+          <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+          <div class="blushes"><div class="blush"></div><div class="blush"></div></div>
+          <div class="arm"></div>
+        </div>
+        <div class="mallow right">
+          <div class="eyes"><div class="eye"></div><div class="eye"></div></div>
+          <div class="blushes"><div class="blush"></div><div class="blush"></div></div>
+          <div class="arm"></div>
+        </div>
+      </div>
+
+      <p class="sweet-msg">Infinite hugs & kisses locked in forever! 😘 squishhh~</p>
+    </div>
+
+  </div>
+
+  <script>
+    /* ========================================================
+       1. CANVAS MATRIX & PARTICLE TEXT ANIMATION SEQUENCE
+    ======================================================== */
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    // Matrix Rain Code
+    const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ♥I LOVE YOU MASHA';
+    const fontSize = 14;
+    let columns = Math.floor(canvas.width / fontSize);
+    let drops = Array(columns).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(3, 2, 6, 0.12)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#ff2a8d';
+      ctx.font = fontSize + 'px monospace';
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = chars.charAt(Math.floor(Math.random() * chars.length));
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    // Canvas Particle Text Phrases
+    const phrases = [
+      "3",
+      "2",
+      "1",
+      "You",
+      "Are",
+      "My",
+      "Love",
+      "I Love U So Much",
+      "Meri Janu",
+      "Mera Chota Sa Baby",
+      "Meri Masha",
+      "Meri Wife ❤️"
+    ];
+
+    let phraseIndex = 0;
+    let particles = [];
+    let animationStage = 0; // 0: phrases sequence, 1: particle heart formed
+
+    class Particle {
+      constructor(x, y) {
+        this.x = Math.random() * canvas.width;
+        this.y = Math.random() * canvas.height;
+        this.targetX = x;
+        this.targetY = y;
+        this.color = '#ffffff';
+        this.size = Math.random() * 2 + 1.5;
+        this.ease = 0.08;
+      }
+
+      update() {
+        this.x += (this.targetX - this.x) * this.ease;
+        this.y += (this.targetY - this.y) * this.ease;
+      }
+
+      draw() {
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = '#ff69b4';
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      }
+    }
+
+    function getTextCoordinates(text) {
+      const offscreen = document.createElement('canvas');
+      const offCtx = offscreen.getContext('2d');
+      offscreen.width = canvas.width;
+      offscreen.height = canvas.height;
+
+      let size = Math.min(canvas.width / (text.length * 0.7), 65);
+      if (text.length <= 2) size = 110;
+
+      offCtx.fillStyle = '#ffffff';
+      offCtx.font = `bold ${size}px 'Segoe UI', sans-serif`;
+      offCtx.textAlign = 'center';
+      offCtx.textBaseline = 'middle';
+      offCtx.fillText(text, canvas.width / 2, canvas.height / 2);
+
+      const imageData = offCtx.getImageData(0, 0, canvas.width, canvas.height);
+      const coords = [];
+      const step = Math.max(2, Math.floor(size / 24));
+
+      for (let y = 0; y < canvas.height; y += step) {
+        for (let x = 0; x < canvas.width; x += step) {
+          const alpha = imageData.data[(y * canvas.width + x) * 4 + 3];
+          if (alpha > 128) {
+            coords.push({ x, y });
+          }
+        }
+      }
+      return coords;
+    }
+
+    function createHeartParticles() {
+      const coords = [];
+      const total = 380;
+      const scale = Math.min(canvas.width, canvas.height) / 45;
+
+      for (let i = 0; i < total; i++) {
+        const t = (i / total) * Math.PI * 2;
+        const x = 16 * Math.pow(Math.sin(t), 3);
+        const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+        coords.push({
+          x: canvas.width / 2 + x * scale,
+          y: canvas.height / 2 + y * scale
+        });
+      }
+      return coords;
+    }
+
+    function loadNextPhrase() {
+      if (phraseIndex < phrases.length) {
+        const coords = getTextCoordinates(phrases[phraseIndex]);
+        adjustParticles(coords);
+        phraseIndex++;
+        setTimeout(loadNextPhrase, 2200);
+      } else {
+        // Form Floating Heart Particle Shape
+        animationStage = 1;
+        const heartCoords = createHeartParticles();
+        adjustParticles(heartCoords);
+
+        document.getElementById('matrixStatus').innerText = "💖 Matrix Heart Formed! Open your birthday letter below 💌";
+      }
+    }
+
+    function adjustParticles(coords) {
+      if (particles.length < coords.length) {
+        while (particles.length < coords.length) {
+          particles.push(new Particle(canvas.width / 2, canvas.height / 2));
+        }
+      } else if (particles.length > coords.length) {
+        particles.splice(coords.length);
+      }
+
+      for (let i = 0; i < coords.length; i++) {
+        particles[i].targetX = coords[i].x;
+        particles[i].targetY = coords[i].y;
+      }
+    }
+
+    function animateCanvas() {
+      drawMatrix();
+
+      particles.forEach(p => {
+        p.update();
+        p.draw();
+      });
+
+      if (animationStage === 1) {
+        ctx.fillStyle = '#ffffff';
+        ctx.font = 'bold 22px "Segoe UI", sans-serif';
+        ctx.textAlign = 'center';
+        ctx.shadowBlur = 12;
+        ctx.shadowColor = '#ff1493';
+        ctx.fillText("I Love You Masha ❤️", canvas.width / 2, canvas.height / 2);
+        ctx.shadowBlur = 0;
+      }
+
+      requestAnimationFrame(animateCanvas);
+    }
+
+    // Start Canvas Animation
+    animateCanvas();
+    setTimeout(loadNextPhrase, 1000);
+
+
+    /* ========================================================
+       2. COCOMALLOW INTERACTIVE CARD LOGIC
+    ======================================================== */
+
+    // Background Flying Elements
+    function createBgItem() {
+      const container = document.getElementById('bgContainer');
+      const item = document.createElement('div');
+      item.classList.add('bg-item');
+      
+      const icons = ['💖', '🍡', '💕', '✨', '🌸', '🍬', '💗', '💋'];
+      item.innerText = icons[Math.floor(Math.random() * icons.length)];
+      
+      item.style.left = Math.random() * 100 + 'vw';
+      item.style.animationDuration = (Math.random() * 3 + 4) + 's';
+      item.style.fontSize = (Math.random() * 1.2 + 1) + 'rem';
+      
+      container.appendChild(item);
+      setTimeout(() => { item.remove(); }, 7000);
+    }
+    setInterval(createBgItem, 350);
+
+    // Music Player Control
+    const music = document.getElementById('bgMusic');
+    const playBtn = document.getElementById('playBtn');
+    const songStatus = document.getElementById('songStatus');
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        playBtn.innerText = '⏸';
+        songStatus.innerText = 'Playing Sweet Love Song 🎶';
+      } else {
+        music.pause();
+        playBtn.innerText = '▶';
+        songStatus.innerText = 'Music Paused 🎵';
+      }
+    }
+
+    // Open Letter -> Reveals Quiz
+    function openLetter() {
+      document.getElementById('envelopeBox').style.display = 'none';
+      document.getElementById('letterBox').style.display = 'block';
+      document.getElementById('quizSection').style.display = 'block';
+      
+      if (music.paused) { toggleMusic(); }
+      burstHearts(15);
+    }
+
+    // Quiz Selection Handler
+    function selectQuizAnswer(answerText) {
+      const resultDiv = document.getElementById('quizResult');
+      resultDiv.style.display = 'block';
+      resultDiv.innerText = `Aww! ${answerText} Leak ho gaya aapka sach! Main bhi aapse sabse zyada pyar karta hu! 🥰💖`;
+      
+      document.getElementById('kissSection').style.display = 'block';
+      document.getElementById('kissSection').scrollIntoView({ behavior: 'smooth' });
+      
+      burstHearts(20);
+    }
+
+    // Flying Kiss Animation & Counter
+    let kissCount = 0;
+    function triggerKissAnimation(event) {
+      kissCount++;
+      document.getElementById('kissCounter').innerText = `Kisses Sent: ${kissCount} 😘 (Pure Love!)`;
+
+      const kissIcons = ['💋', '😘', '😚', '💖', '🥰'];
+      for (let i = 0; i < 5; i++) {
+        const flyingKiss = document.createElement('div');
+        flyingKiss.classList.add('flying-kiss');
+        flyingKiss.innerText = kissIcons[Math.floor(Math.random() * kissIcons.length)];
+        
+        const x = event.clientX + (Math.random() * 80 - 40);
+        const y = event.clientY + (Math.random() * 40 - 20);
+        
+        flyingKiss.style.left = `${x}px`;
+        flyingKiss.style.top = `${y}px`;
+        
+        document.body.appendChild(flyingKiss);
+        setTimeout(() => { flyingKiss.remove(); }, 1500);
+      }
+
+      // Show Question Declaration Section
+      const loveDecl = document.getElementById('loveDeclaration');
+      if (loveDecl.style.display !== 'block') {
+        loveDecl.style.display = 'block';
+        loveDecl.scrollIntoView({ behavior: 'smooth' });
+        burstHearts(25);
+      }
+    }
+
+    // Reply Action ("I love u too so much janu!")
+    function submitILoveYouToo() {
+      const replyBtn = document.getElementById('replyBtn');
+      replyBtn.style.display = 'none';
+
+      const confirmedMsg = document.getElementById('replyConfirmedMsg');
+      confirmedMsg.style.display = 'block';
+
+      burstHearts(30);
+
+      // Show Cocomallow Hug section after 1 second
+      setTimeout(() => {
+        const hugSec = document.getElementById('hugSection');
+        hugSec.style.display = 'block';
+        hugSec.scrollIntoView({ behavior: 'smooth' });
+        burstHearts(20);
+      }, 1000);
+    }
+
+    // Heart Burst Helper
+    function burstHearts(count) {
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => { createBgItem(); }, i * 50);
+      }
+    }
+  </script>
+</body>
+</html>
